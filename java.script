@@ -1,0 +1,53 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Scroll suave para os links da navegação
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Botão "Saiba Mais" na seção Hero
+    const learnMoreBtn = document.getElementById('learnMoreBtn');
+    if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', () => {
+            document.querySelector('#campo').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Validação e envio do formulário de contato
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Impede o recarregamento da página
+
+            // Simulação de envio de formulário
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                // Aqui você enviaria os dados para um servidor (ex: via fetch API)
+                // Para este exemplo, apenas exibimos uma mensagem de sucesso
+                formMessage.textContent = `Obrigado, ${name}! Sua mensagem foi enviada.`;
+                formMessage.style.color = 'green';
+                formMessage.classList.remove('hidden');
+                contactForm.reset(); // Limpa o formulário
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000); // Esconde a mensagem após 5 segundos
+            } else {
+                formMessage.textContent = 'Por favor, preencha todos os campos.';
+                formMessage.style.color = 'red';
+                formMessage.classList.remove('hidden');
+            }
+        });
+    }
+});
